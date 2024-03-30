@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+/* .title {
+      color: red; 
+      text-shadow: 
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000; 
+    } */
+
+.bg {
+  background: url("../images/backgroundED.png") no-repeat center center;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.heading {
+  width: 100%;
+  height: 10%;
+  background: #50b3a2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading-text {
+  position: absolute; /* Position the text absolutely */
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  text-shadow: 0 0 5px #000000;
+  color: red;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 56px;
+  z-index: 1; /* Ensure text appears above other elements */
+}
+
+.text2{
+    color: white;
+    font-family: "Times New Roman", Times, serif;
+    text-align: center;
+    font-size: 24px;
+    padding-top: 10%;
+}
+
+#logo-image {
+  position: absolute;
+  top: 8%;
+  left: 35%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 90px;
+}
+
+.container {
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 18px;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 60%;
+  background: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  display: block;
+  border-radius: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 80%; /* Adjust width as needed */
+  padding: 14px 1px;
+  margin: 5px auto 22px auto; /* Set margins to auto to center horizontally */
+  display: block; /* Change display to block to stack them vertically */
+  border: none;
+  background: black; /* Set background color to black */
+  color: white;
+}
+input[type="text"]:focus,
+input[type="password"]:focus {
+  background-color: black;
+  outline: none;
+}
+.btn {
+  background-color: red;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px auto; /* Set left and right margins to auto to center horizontally */
+  border: none;
+  cursor: pointer;
+  width: 80%; /* Adjust width to fit the content */
+  opacity: 0.9;
+  display: block;
+  text-align: center;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+.login {
+  background-color: #f1f1f1;
+  text-align: center;
+  color: black;
+}
+
+label {
+  padding: 10%;
+  text-align: left;
+}
+
+h1,
+p {
+  text-align: center;
+}
+/* This will apply to the <h1> with the class "title" */
+/* .title {
+      font-size: 4rem;
+      margin: 0; 
+      text-align: center;
+    }
+     */
+/* This will apply to the <p> immediately following .title */
+/* .title + p {
+      font-size: 1.5rem; 
+      margin: 0; 
+      text-align: center;
+    } */

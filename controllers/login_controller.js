@@ -1,3 +1,3 @@
-exports.health = (req, res) => {
-    res.render("health");
-  };
+exports.login = (req, res) => {
+  res.render("login");
+};
