@@ -1,0 +1,6 @@
+{
+    "host": "moodflix.ctumk8kuq7t9.eu-north-1.rds.amazonaws.com",
+    "user": "admin",
+    "password": "MoodFlix123",
+    "database": "MoodFlix"
+}

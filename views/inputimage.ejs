@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Emotion Detection</title>
     <link rel="stylesheet" href="css/inputimage.css" />
-    <link rel="icon" href="img/logo.png" type="image/png" />
+    <link rel="icon" href="images/logo.png" type="image/png" />
   </head>
   <body>
     <div class="bg">
@@ -18,12 +18,120 @@
           Spill the beans! Share your face, we won't judge, just recommend
         </div>
         <br />
+        <br />
+        <br />
         <img src="images/camera.png" alt="Front Image" id="front-image" />
-        <div class="buttons">
-          <button id="open-camera">Open Camera</button>
+        <video
+          id="video"
+          width="320"
+          height="260"
+          muted
+          autoplay
+          style="display: none"
+        ></video>
+        <!-- Initially hidden -->
+        <form id="image-form" method="POST" enctype="multipart/form-data">
+          <input
+            type="hidden"
+            id="prediction-input"
+            name="prediction"
+            value=""
+          />
+          <button id="open-camera" type="button">Open Camera</button>
+          <button id="capture-image" type="button">Capture Image</button>
           <br />
-        </div>
+        </form>
+        <form id="image-form1" method="POST">
+          <div class="button-container">
+            <button id="next" type="submit">Next</button>
+          </div>
+        </form>
+        <p id="emotion-display"></p>
       </div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const video = document.getElementById("video");
+        const openCameraBtn = document.getElementById("open-camera");
+        const captureImageBtn = document.getElementById("capture-image");
+        const emotionDisplay = document.getElementById("emotion-display");
+        const frontImage = document.getElementById("front-image"); // Get the front image element
+
+        let stream;
+
+        openCameraBtn.addEventListener("click", async () => {
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            video.play();
+            frontImage.style.display = "none"; // Hide the front image
+            video.style.display = "block"; // Show the video
+          } catch (error) {
+            console.error("Error accessing camera:", error);
+          }
+        });
+
+        captureImageBtn.addEventListener("click", async () => {
+          if (stream) {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convert canvas data to a Blob
+            canvas.toBlob(async (blob) => {
+              const formData = new FormData();
+              formData.append("image", blob); // Append image Blob to FormData
+
+              try {
+                const response = await fetch("/predict/emotion", {
+                  method: "POST",
+                  body: formData, // Send FormData instead of JSON.stringify
+                });
+
+                if (!response.ok) {
+                  throw new Error("Failed to predict emotion 1");
+                }
+
+                const data = await response.json();
+                if (data.success) {
+                  console.log(data.data);
+                  emotionDisplay.textContent = `Predicted Emotion: ${data.data}`;
+                  sendPredictionToBackend(data.data);
+                } else {
+                  throw new Error("Failed to predict emotion");
+                }
+              } catch (error) {
+                console.error("Error:", error);
+                emotionDisplay.textContent =
+                  "Failed to predict emotion. Please try again later.";
+                // Log server response if available
+                if (error.response) {
+                  console.error("Server Response:", error.response);
+                }
+              }
+            }, "image/jpeg");
+          } else {
+            console.error("Camera stream not available.");
+          }
+        });
+      });
+      function sendPredictionToBackend(prediction) {
+        fetch("/input", {
+          method: "POST", // Adjust method based on your backend logic
+          headers: { "Content-Type": "application/json" }, // Optional for JSON data
+          body: JSON.stringify({ prediction }), // Send prediction as JSON
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Handle response from Node.js backend (e.g., update UI)
+          })
+          .catch((error) => {
+            console.error("Error sending prediction:", error);
+          });
+      }
+    </script>
   </body>
 </html>

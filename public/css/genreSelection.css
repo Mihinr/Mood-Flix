@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+  }
+  
+  body {
+    background: url("../images/backgroundED.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .drop-down-container {
+    padding: 100px;
+    background-color: rgba(0, 0, 0, 0.511);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: baseline;
+    align-items: center;
+    font-family: "Times New Roman", Times, serif;
+  }
+  
+  .genre-prompt {
+    color: rgba(223, 223, 223, 0.737);
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .dropdown button {
+    background-color: transparent;
+    border: none;
+    color: rgba(223, 223, 223, 0.737);
+  }
+
+  .button-container {
+    text-align: center; /* Center-align the content */
+  }
+  
+  #next {
+    margin: 10px; /* Spacing around the button */
+    background-color: green; /* Grey background */
+    color: white; /* Black text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding inside buttons */
+    font-weight: bold; /* Optional: bold text */
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+  
+  

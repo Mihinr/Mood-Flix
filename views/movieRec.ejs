@@ -1,19 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html>
+  <head>
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie Recommendation</title>
-    <link rel="stylesheet" href="css/movieRec.css">
+    <link rel="stylesheet" href="css/movieRec.css" />
     <link rel="icon" href="images/logo.png" type="image/png" />
-</head>
-<body>
+  </head>
 
-<div class="bg">
- 
-   
-</div>
+  <body>
+    <div class="bg">
+      <img src="images/logo.png" alt="logo Image" id="logo-image" />
+      <div class="heading-text"><b>MOOD FLIX</b></div>
+      <br />
+      <div class="text2">
+        <br />
+        We've curated a selection of movies just for you, guaranteed to keep your smiles flowing
+      </div>
+      <div class="search-margin">
+        <input type="text" class="instructor-search" id="search" placeholder="Search" />
+      </div>
+      <br />
+      <section class="container content-section">
+        <div class="items">
+          <form id="ratingForm" method="POST" action="">
+            <% dbRecordList.forEach(movieArray => { %>
+              <% movieArray.forEach(movie => { %>
+                <% let i = 0; %>
+                <div class="item-ins">
+                  <img class="item-image-ins" src="<%= movie.posterLink %>" alt="" />
+                  <span class="item-title"><%= movie.title %></span>
+                  <div class="item-details">
+                    <p>
+                      <strong>Overview:</strong>
+                      <br />
+                      <br />
+                      <%= movie.overview %>
+                      <br />
+                      <br />
+                      Rating: <%= movie.imdbRating %>
+                    </p>
+                    <input type="hidden" name="movieId" value="<%= movie.movieId %>" />
+                    <div class="star-rating">
+                      <div class="ratingA">
+                        <input type="radio" name="rating_<%= movie.movieId %>" id="<%= movie.movieId %>-5" value="5" class="rating_num"/>
+                        <label for="<%= movie.movieId %>-5"></label>
+                        <input type="radio" name="rating_<%= movie.movieId %>" id="<%= movie.movieId %>-4" value="4" class="rating_num"/>
+                        <label for="<%= movie.movieId %>-4"></label>
+                        <input type="radio" name="rating_<%= movie.movieId %>" id="<%= movie.movieId %>-3" value="3" class="rating_num"/>
+                        <label for="<%= movie.movieId %>-3"></label>
+                        <input type="radio" name="rating_<%= movie.movieId %>" id="<%= movie.movieId %>-2" value="2" class="rating_num"/>
+                        <label for="<%= movie.movieId %>-2"></label>
+                        <input type="radio" name="rating_<%= movie.movieId %>" id="<%= movie.movieId %>-1" value="1" class="rating_num"/>
+                        <label for="<%= movie.movieId %>-1"></label>
+                        <h6 class="rating_num"></h6>
+                        <br />
+                        <br />
+                        <br />
+                      </div>
+                      <br />
+                    </div>
+                    <p class="error-msg" style="display: none; color: red;"></p>
+                  </div>
+                </div>
+                <% if ((i + 1) % 5 === 0 && i !== dbRecordList.length - 1) { %>
+                  <!-- Add a clearing div after every 5 items -->
+                  <div style="clear: both"></div>
+                  <% } %>
+              <% }); %>
+            <% }); %>
+            <div class="button-container">
+              <button id="next" type="submit">Submit All Ratings</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+    <br />
+    <!-- <script>
+      const ratingForm = document.getElementById('ratingForm');
 
-</body>
+      ratingForm.addEventListener('submit', function(event) {
+        const items = document.querySelectorAll('.item-ins');
+        let valid = true;
+
+        items.forEach(item => {
+          const ratingInputs = item.querySelectorAll('.star-rating input[type="radio"]');
+          let checked = false;
+
+          ratingInputs.forEach(input => {
+            if (input.checked) {
+              checked = true;
+            }
+          });
+
+          if (!checked) {
+            valid = false;
+            const errorMessage = item.querySelector('.error-msg');
+            errorMessage.textContent = 'Please select a rating for this movie.';
+            errorMessage.style.display = 'block';
+          }
+        });
+
+        if (!valid) {
+          event.preventDefault();
+        }
+      });
+    </script> -->
+  </body>
 </html>
